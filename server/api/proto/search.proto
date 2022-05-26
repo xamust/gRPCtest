@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "./pkg/api";
+
+service Searching {
+  rpc Search(AddRequest) returns (AddResponse){}
+}
+
+message AddRequest {
+  string book = 1;
+  string writer = 2;
+}
+
+message AddResponse {
+  string writer = 1;
+  string book = 2;
+}
+
+//protoc -I api/proto --go_out=. --go-grpc_opt=require_unimplemented_servers=false --go-grpc_out=. api/proto/*.proto

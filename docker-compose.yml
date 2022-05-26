@@ -1,0 +1,26 @@
+version: "3.5"
+services:
+  search:
+    restart: always
+    depends_on:
+      - db
+    build: './server/'
+    ports:
+      - '127.0.0.1:8080:8080'
+    networks:
+      - mysqlnet
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - '127.0.0.1:3306:3306'
+    networks:
+      - mysqlnet
+
+networks:
+  mysqlnet:
+    driver: bridge

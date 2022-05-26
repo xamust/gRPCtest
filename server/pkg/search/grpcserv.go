@@ -10,7 +10,7 @@ import (
 
 type GRPCServer struct {
 	Logger *logrus.Logger
-	Store  *store.StoreRepo
+	Store  store.StoreRepoInt
 }
 
 func (g *GRPCServer) Search(ctx context.Context, req *api.SearchRequest) (*api.SearchResponse, error) {

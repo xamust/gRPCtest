@@ -1,8 +1,8 @@
 --
 -- База данных: `KVADOTest`
 --
-CREATE DATABASE KVADOTest;
-use KVADOTest;
+CREATE DATABASE KVADOTestForTest;
+use KVADOTestForTest;
 SET charset utf8;
 --
 -- Структура таблицы для писателей...

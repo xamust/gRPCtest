@@ -3,7 +3,6 @@ package store
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	"time"
 )
 
 type AppStore struct {
@@ -12,25 +11,21 @@ type AppStore struct {
 	storeRepo *StoreRepo
 }
 
+//инициализируем новый конфиг для коннекта к бд...
 func New(config *Config) *AppStore {
 	return &AppStore{
 		config: config,
 	}
 }
 
+//открываем бд...
 func (s *AppStore) Open() error {
 	db, err := sql.Open("mysql", s.config.DataBaseUrl)
 	if err != nil {
 		return err
 	}
 
-	//todo: from habr...
-	//https://habr.com/ru/company/oleg-bunin/blog/583558/
-	// See "Important settings" section.
-	db.SetConnMaxLifetime(time.Minute * 3)
-	db.SetMaxOpenConns(10)
-	db.SetMaxIdleConns(10)
-
+	//пингуем бд, для проверки соединения, открытое соединение не гарантирует работоспособность соединения с бд!...
 	if err := db.Ping(); err != nil { //ping connect DB
 		return err
 	}
@@ -40,10 +35,12 @@ func (s *AppStore) Open() error {
 	return nil
 }
 
+//реализация закрытия соединения с бд...
 func (s *AppStore) Close() {
 	s.db.Close()
 }
 
+//реализация хранилища запросов к бд, для работы сервиса...
 func (s *AppStore) StoreRep() *StoreRepo {
 	if s.storeRepo != nil {
 		return s.storeRepo

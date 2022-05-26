@@ -15,9 +15,12 @@ type GRPCServer struct {
 
 func (g *GRPCServer) Search(ctx context.Context, req *api.SearchRequest) (*api.SearchResponse, error) {
 
+	//инициализируем пустую структуру для ответа клиенту...
 	searchResp := &api.SearchResponse{}
 
+	//определяем, что ищет клиент (книги или писателя) и выдаем требуемую информацию, либо возвращаем ошибку...
 	if req.GetWriter() != "" {
+		//поиск книг...
 		book, err := g.Store.FindByWriter(req.GetWriter())
 		if err != nil {
 			g.Logger.Errorf(err.Error())
@@ -25,7 +28,7 @@ func (g *GRPCServer) Search(ctx context.Context, req *api.SearchRequest) (*api.S
 		}
 		searchResp.Book = book
 	} else if req.GetBook() != "" {
-
+		//поиск писателя...
 		writer, err := g.Store.FindByBook(req.GetBook())
 		if err != nil {
 			g.Logger.Errorf(err.Error())

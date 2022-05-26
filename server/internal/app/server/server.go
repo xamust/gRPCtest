@@ -42,8 +42,6 @@ func (s *AppServer) Start() error {
 		return err
 	}
 
-	///.....
-
 	return nil
 }
 
@@ -72,7 +70,6 @@ func (s *AppServer) configureLogger() error {
 //configure gRPC...
 func (s *AppServer) configureGRPC() error {
 	s.server = grpc.NewServer()
-	//srv := search.GRPCServer{}
 	s.search = &search.GRPCServer{s.logger, s.StoreBD.StoreRep()}
 	api.RegisterSearchingServer(s.server, s.search)
 

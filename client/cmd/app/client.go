@@ -15,6 +15,7 @@ import (
 func main() {
 
 	var myParam, myBook, myWriter string
+	//подключаемся к нашему сервису на указанном порту :8080 ...
 	conn, err := grpc.Dial(":8080", grpc.WithInsecure()) //withinsecure, для корректного игнорирования
 	if err != nil {
 		log.Fatalln(err)
@@ -26,14 +27,18 @@ func main() {
 		fmt.Scan(&myParam)
 		if myParam == "book" {
 			fmt.Println("Укажите имя книги:")
-			fmt.Scan(&myBook)
+			//bufio для чтения строки с пробелами...
+			myscanner := bufio.NewScanner(os.Stdin)
+			myscanner.Scan()
+			myBook = myscanner.Text()
+			//инициализируем клиента и ищем...
 			c := api.NewSearchingClient(conn)
 			resp, err := c.Search(context.Background(), &api.SearchRequest{Book: myBook})
 			if err != nil {
 				log.Println(err)
 				continue
 			}
-			fmt.Printf("Книгу %s написал %s\n", myBook, resp.GetWriter())
+			fmt.Printf("Книгу \"%s\" написал %s\n", myBook, resp.GetWriter())
 
 		} else if myParam == "writer" {
 			fmt.Println("Укажите писателя:")
@@ -41,14 +46,21 @@ func main() {
 			myscanner := bufio.NewScanner(os.Stdin)
 			myscanner.Scan()
 			myWriter = myscanner.Text()
+			//инициализируем клиента и ищем...
 			c := api.NewSearchingClient(conn)
 			resp, err := c.Search(context.Background(), &api.SearchRequest{Writer: myWriter})
 			if err != nil {
 				log.Println(err)
 				continue
 			}
-			fmt.Printf("Писатель %s написал книги %s\n", myWriter, resp.GetBook())
+			fmt.Printf("Писатель %s написал книги", myWriter)
+			for _, v := range resp.GetBook() {
+				fmt.Printf(",\"%s\"", v)
+			}
+			fmt.Println(".")
+
 		} else if myParam == "exit" {
+			// такой костыль-выход...
 			break
 		}
 	}

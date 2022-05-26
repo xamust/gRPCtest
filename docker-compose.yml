@@ -14,14 +14,17 @@ services:
     image: mysql
     restart: always
     environment:
+      #устанавливаем свой пароль к бд...
       MYSQL_ROOT_PASSWORD: password
     volumes:
+      #файл с иницуиализацией тестовой базы и дампом дааных...
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '127.0.0.1:3306:3306'
     networks:
       - mysqlnet
 
+#для корректной работы бд и приложения в контейнерах, создаем свою сеть...
 networks:
   mysqlnet:
     driver: bridge

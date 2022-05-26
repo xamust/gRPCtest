@@ -1,4 +1,4 @@
-.PHONY: init build run compile
+.PHONY: init build run compile test
 
 all:
 		make init
@@ -13,5 +13,6 @@ run:
 ## Compile the proto file.
 compile:
 		protoc -I api/proto --go_out=. --go-grpc_opt=require_unimplemented_servers=false --go-grpc_out=. api/proto/*.proto
-
+test:
+		go test -v ./...
 .DEFAULT_GOAL := build

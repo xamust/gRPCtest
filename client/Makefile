@@ -7,7 +7,7 @@ init:
 		go mod tidy
 build:
 		make init
-		go build -o build/server -v ./cmd/app
+		go build -o build/client -v ./cmd/app
 run:
 		go run ./cmd/app
 ## Compile the proto file.

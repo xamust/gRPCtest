@@ -2,8 +2,6 @@ version: "3.5"
 services:
   search:
     restart: on-failure
-    environment:
-      DATABASE_URL: 'root:password@tcp(test_db:3307)/KVADOTestForTest'
     depends_on:
       - db
     build: './server/'

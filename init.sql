@@ -1,49 +1,63 @@
-DROP DATABASE KVADOTest;
-
+--
+-- База данных: `KVADOTest`
+--
 CREATE DATABASE KVADOTest;
-
 use KVADOTest;
-
+SET charset utf8;
+--
+-- Структура таблицы для писателей...
+--
 create table TestWritersTable
 (
     id     int         not null,
-    Writer varchar(32) not null,
+    writer varchar(255) not null,
     constraint TestWritersTable_pk
         primary key (id)
 );
 create unique index TestWritersTable_Writer_uindex
-    on TestWritersTable (Writer);
+    on TestWritersTable (writer);
 create unique index TestWritersTable_id_uindex
     on TestWritersTable (id);
 
+--
+-- Структура таблицы для книг...
+--
 create table TestBooksTable
 (
     id int auto_increment,
-    Book varchar(32) not null,
-    WriterId int not null,
+    book varchar(255) not null,
+   writerId int not null,
     constraint TestBooksTable_pk
         primary key (id)
 );
 create unique index TestBooksTable_Writer_uindex
-    on TestBooksTable (Book);
+    on TestBooksTable (book);
 create unique index TestBooksTable_id_uindex
     on TestBooksTable (id);
 
-INSERT INTO KVADOTest.TestWritersTable (id, Writer) VALUES (1, 'Лукъяненко С.');
-INSERT INTO KVADOTest.TestWritersTable (id, Writer) VALUES (2, 'Бредбери Р.');
-INSERT INTO KVADOTest.TestWritersTable (id, Writer) VALUES (3, 'Лем С.');
-INSERT INTO KVADOTest.TestWritersTable (id, Writer) VALUES (4, 'Оруэлл Д.');
-INSERT INTO KVADOTest.TestWritersTable (id, Writer) VALUES (5, 'Стругацкие А. Б.');
-INSERT INTO KVADOTest.TestWritersTable (id, Writer) VALUES (6, 'Толстой А.');
+--
+-- Дамп данных таблицы для писателей...
+--
+INSERT INTO KVADOTest.TestWritersTable (id, writer) VALUES
+(1, 'Лукъяненко С.'),
+(2, 'Бредбери Р.'),
+(3, 'Лем С.'),
+(4, 'Оруэлл Д.'),
+(5, 'Стругацкие А. Б.'),
+(6, 'Толстой А.');
 
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Звездая тень', 1);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Осенние визиты', 1);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Пикник на обочине', 5);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('1984', 4);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Солярис', 3);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Звёздные дневники Йона Тихого', 3);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Война миров', 2);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Марсианские хроники', 2);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Извне', 5);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Гиперболоид инженера Гарина', 6);
-INSERT INTO KVADOTest.TestBooksTable (Book, WriterId) VALUES ('Аэлита', 6);
+--
+-- Дамп данных таблицы для книг...
+--
+INSERT INTO KVADOTest.TestBooksTable (book, writerId) VALUES
+('Звездая тень', 1),
+('Осенние визиты', 1),
+('Пикник на обочине', 5),
+('1984', 4),
+('Солярис', 3),
+('Звёздные дневники Йона Тихого', 3),
+('Война миров', 2),
+('Марсианские хроники', 2),
+('Извне', 5),
+('Гиперболоид инженера Гарина', 6),
+('Аэлита', 6);

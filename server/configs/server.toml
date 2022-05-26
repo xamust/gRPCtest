@@ -4,3 +4,4 @@ log_level = "debug"
 [store]
 #В имени хоста указывать имя сервиса (db), а не localhost или 0.0.0.0 (иначе docker не понимает)
 database_url = "root:password@tcp(db:3306)/KVADOTest"
+#?useUnicode=yes&characterEncoding=UTF-8

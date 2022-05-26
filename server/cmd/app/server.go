@@ -24,7 +24,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	//start server
+	//start app
 	serverGRPC := server.New(config)
 	if err := serverGRPC.Start(); err != nil {
 		log.Fatal(err)

@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   search:
-    restart: always
+    restart: on-failure
     depends_on:
       - db
     build: './server/'
@@ -9,6 +9,7 @@ services:
       - '127.0.0.1:8080:8080'
     networks:
       - mysqlnet
+
   db:
     image: mysql
     restart: always

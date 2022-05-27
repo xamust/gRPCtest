@@ -38,8 +38,11 @@ func main() {
 				log.Println(err)
 				continue
 			}
-			fmt.Printf("Книгу \"%s\" написал %s\n", myBook, resp.GetWriter())
-
+			if resp.GetWriter() != "" {
+				fmt.Printf("Книгу \"%s\" написал %s\n", myBook, resp.GetWriter())
+			} else {
+				fmt.Printf("Книга \"%s\" в бд не найдена\n", myBook)
+			}
 		} else if myParam == "writer" {
 			fmt.Println("Укажите писателя:")
 			//bufio для чтения строки с пробелами...
@@ -53,11 +56,15 @@ func main() {
 				log.Println(err)
 				continue
 			}
-			fmt.Printf("Писатель %s написал книги", myWriter)
-			for _, v := range resp.GetBook() {
-				fmt.Printf(",\"%s\"", v)
+			if len(resp.GetBook()) > 0 {
+				fmt.Printf("Писатель %s написал книги", myWriter)
+				for _, v := range resp.GetBook() {
+					fmt.Printf(",\"%s\"", v)
+				}
+				fmt.Println(".")
+			} else {
+				fmt.Printf("Книг писателя %s, в бд не найдено!\n", myWriter)
 			}
-			fmt.Println(".")
 
 		} else if myParam == "exit" {
 			// такой костыль-выход...

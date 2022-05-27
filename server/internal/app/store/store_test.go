@@ -8,6 +8,6 @@ import (
 var dataBaseURL string
 
 func TestMain(m *testing.M) {
-	dataBaseURL = "root:password@tcp(localhost:3307)/KVADOTestForTest"
+	dataBaseURL = "root:password@tcp(localhost:3307)/gRPCTestForTest"
 	os.Exit(m.Run())
 }

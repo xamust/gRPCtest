@@ -1,8 +1,8 @@
 --
--- База данных: `KVADOTest`
+-- База данных: `gRPCTest`
 --
-CREATE DATABASE KVADOTestForTest;
-use KVADOTestForTest;
+CREATE DATABASE gRPCTestForTest;
+use gRPCTestForTest;
 SET charset utf8;
 --
 -- Структура таблицы для писателей...
